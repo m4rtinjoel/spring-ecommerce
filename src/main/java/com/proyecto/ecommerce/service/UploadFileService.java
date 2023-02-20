@@ -21,7 +21,7 @@ public class UploadFileService {
 		return "default.jpg"; 
 	}
 	
-	public void delete(String name) {
+	public void deleteImage(String name) {
 		String ruta="images//";
 		File file=new File(ruta+name);
 		file.delete();
