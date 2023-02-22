@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import com.proyecto.ecommerce.model.DetalleOrden;
 import com.proyecto.ecommerce.model.Orden;
 import com.proyecto.ecommerce.model.Producto;
+import com.proyecto.ecommerce.model.Usuario;
+import com.proyecto.ecommerce.service.IUsuarioService;
 import com.proyecto.ecommerce.service.ProductoService;
 
 @Controller
@@ -31,6 +33,10 @@ public class HomeController {
 	// datos de la orden
 	Orden orden = new Orden();
 
+	//
+	@Autowired
+	private IUsuarioService usuarioService;
+	
 	@GetMapping("")
 	public String home(Model model) {
 		model.addAttribute("productos", productoService.findAll());
@@ -118,7 +124,13 @@ public class HomeController {
 	}
 	
 	@GetMapping("/order")
-	public String order() {
+	public String order(Model model) {
+		
+		Usuario usuario=usuarioService.findById(1).get();
+		
+		model.addAttribute("cart", detalles);
+		model.addAttribute("orden", orden);
+		model.addAttribute("usuario", usuario);
 		return "usuario/resumenorden";
 	}
 }
