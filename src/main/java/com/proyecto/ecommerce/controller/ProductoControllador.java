@@ -18,6 +18,8 @@ import com.proyecto.ecommerce.model.Producto;
 import com.proyecto.ecommerce.model.Usuario;
 import com.proyecto.ecommerce.service.*;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/productos")
 public class ProductoControllador {
@@ -27,6 +29,8 @@ public class ProductoControllador {
 	@Autowired
 	private ProductoService productoService;
 	
+	@Autowired
+	private IUsuarioService usuarioService;
 	@Autowired
 	private UploadFileService uploadFileService;
 	
@@ -42,9 +46,9 @@ public class ProductoControllador {
 	}
 	
 	@PostMapping("/save")
-	public String save(Producto producto,@RequestParam("img") MultipartFile file) throws IOException {
+	public String save(Producto producto,@RequestParam("img") MultipartFile file,HttpSession session) throws IOException {
 		LOGGER.info("Este es objeto producto {}",producto);
-		Usuario	usuario=new Usuario(1,"","","","","","","");
+		Usuario	usuario=usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
 		producto.setUsuario(usuario);
 		
 		//imagen
