@@ -71,4 +71,14 @@ public class UsuarioController {
 		model.addAttribute("ordenes",ordenes);
 		return "usuario/compras";
 	}
+	
+	@GetMapping("/detalle/{id}")
+	public String detalleCompra(@PathVariable Integer id,HttpSession session, Model model) {
+		//session
+		logger.info("Id de la orden: {}",id);
+		Optional<Orden> orden=ordenService.findById(id);
+		model.addAttribute("detalles", orden.get().getDetalleOrden());
+		model.addAttribute("sesion", session.getAttribute("idusuario"));
+		return "usuario/detallecompra";
+	}
 }
