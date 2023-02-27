@@ -1,5 +1,6 @@
 package com.proyecto.ecommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class UsuarioServiceImp implements IUsuarioService {
 	@Override
 	public Optional<Usuario> findByEmail(String email) {
 		return usuarioRepository.findByEmail(email);
+	}
+
+	@Override
+	public List<Usuario> findAll() {
+		return usuarioRepository.findAll();
 	}
 
 	
